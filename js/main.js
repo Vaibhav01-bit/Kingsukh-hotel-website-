@@ -3,16 +3,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ══════════════════════════════════
-     PRELOADER
-  ══════════════════════════════════ */
-  const preloader = document.getElementById('preloader');
-  if (preloader) {
-    // Hide after 2s (matches preloader bar animation)
-    setTimeout(() => preloader.classList.add('hide'), 2000);
-    setTimeout(() => { preloader.style.display = 'none'; }, 2600);
-  }
-
-  /* ══════════════════════════════════
      OFFER BANNER
   ══════════════════════════════════ */
   const offerBanner = document.getElementById('offerBanner');
@@ -40,9 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ══════════════════════════════════
-     NAVBAR — scroll + active link
+     NAVBAR — Smart scroll + active link
   ══════════════════════════════════ */
   const navLinks = document.querySelectorAll('.nav-link');
+  const progressBar = document.getElementById('scrollProgress');
 
   /* ── cache hero elements for parallax ── */
   const heroSection = document.querySelector('.hero');
@@ -51,62 +42,85 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroOverlay = document.querySelector('.hero-overlay');
   const scrollHint = document.querySelector('.scroll-hint');
 
+  /* scroll-direction tracking */
+  let lastScrollY = 0;
+  let ticking = false;
+
   const onScroll = () => {
     const sy = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+
+    /* ── SCROLL PROGRESS BAR ── */
+    if (progressBar) {
+      const pct = docH > 0 ? (sy / docH) * 100 : 0;
+      progressBar.style.width = Math.min(pct, 100) + '%';
+    }
 
     /* ── HERO PARALLAX (only while hero is in view) ── */
     if (heroSection && sy < heroSection.offsetHeight) {
       const heroH = heroSection.offsetHeight;
-      const progress = Math.min(sy / heroH, 1); // 0 → 1
+      const progress = Math.min(sy / heroH, 1);
 
-      // 1. image drifts down (parallax depth = 40%)
       if (heroImg) {
         heroImg.style.transform = `scale(1.08) translateY(${progress * 18}%)`;
       }
-
-      // 2. content fades + floats up
       if (heroContent) {
-        const fadeStart = 0.08;  // start fading at 8% scroll
+        const fadeStart = 0.08;
         const opacity = progress < fadeStart ? 1 : Math.max(0, 1 - (progress - fadeStart) / 0.35);
-        const translateY = progress * -60; // floats up 60px max
         heroContent.style.opacity = opacity;
-        heroContent.style.transform = `translateY(${translateY}px)`;
+        heroContent.style.transform = `translateY(${progress * -60}px)`;
       }
-
-      // 3. overlay darkens slightly (adds 0 → .35 extra opacity)
       if (heroOverlay) {
         const extra = progress * 0.35;
-        heroOverlay.style.background =
-          `linear-gradient(135deg,
-            rgba(13,26,21,${0.82 + extra}) 0%,
-            rgba(26,60,46,${0.60 + extra}) 50%,
-            rgba(13,26,21,${0.75 + extra}) 100%)`;
+        heroOverlay.style.background = `linear-gradient(135deg,
+          rgba(13,26,21,${0.82 + extra}) 0%,
+          rgba(26,60,46,${0.60 + extra}) 50%,
+          rgba(13,26,21,${0.75 + extra}) 100%)`;
       }
-
-      // 4. scroll hint fades out immediately on first scroll
-      if (scrollHint) {
-        scrollHint.classList.toggle('hidden', sy > 30);
-      }
+      if (scrollHint) scrollHint.classList.toggle('hidden', sy > 30);
     }
 
-    /* ── Navbar hide/show ── */
-    if (sy > 80) {
-      navbar?.classList.add('nav-hidden');
+    /* ── SMART NAVBAR: hide on scroll-down, show on scroll-up ── */
+    const scrollingDown = sy > lastScrollY;
+    if (sy > 120) {
+      /* hide when scrolling down fast enough */
+      if (scrollingDown && sy - lastScrollY > 4) {
+        navbar?.classList.add('nav-hidden');
+      } else if (!scrollingDown) {
+        navbar?.classList.remove('nav-hidden');
+      }
     } else {
+      /* always show near top */
       navbar?.classList.remove('nav-hidden');
+    }
+    lastScrollY = sy;
+
+    /* ── NAVBAR GLASSMORPHISM when scrolled past hero ── */
+    if (sy > 80) {
+      navbar?.classList.add('nav-scrolled');
+    } else {
+      navbar?.classList.remove('nav-scrolled');
     }
 
     /* ── Active nav link ── */
-    const scrollPos = sy + 120;
+    const scrollPos = sy + 140;
+    let activeSet = false;
     document.querySelectorAll('section[id]').forEach(sec => {
+      if (activeSet) return;
       const id = sec.getAttribute('id');
       const link = document.querySelector(`.nav-link[href="#${id}"]`);
       if (!link) return;
       if (scrollPos >= sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {
         navLinks.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
+        activeSet = true;
       }
     });
+    /* default to home if nothing matches (very top) */
+    if (!activeSet && sy < 200) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      document.querySelector('.nav-link[href="#home"]')?.classList.add('active');
+    }
 
     /* ── Back to top button ── */
     const btn = document.getElementById('backToTop');
@@ -444,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = `perspective(900px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02,1.02,1.02) translateZ(10px)`;
       if (glow) {
         glow.style.left = `${e.clientX - rect.left}px`;
-        glow.style.top  = `${e.clientY - rect.top}px`;
+        glow.style.top = `${e.clientY - rect.top}px`;
       }
     });
 
@@ -466,15 +480,21 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < 22; i++) {
       const p = document.createElement('div');
       p.className = 'rev-particle';
-      const size  = (Math.random() * 4 + 2).toFixed(1);
-      const x     = (Math.random() * 100).toFixed(1);
+      const size = (Math.random() * 4 + 2).toFixed(1);
+      const x = (Math.random() * 100).toFixed(1);
       const yBase = (Math.random() * 100).toFixed(1);
-      const dur   = (Math.random() * 6 + 5).toFixed(1);
+      const dur = (Math.random() * 6 + 5).toFixed(1);
       const delay = (Math.random() * 8).toFixed(1);
       p.style.cssText = `width:${size}px;height:${size}px;left:${x}%;top:${yBase}%;--dur:${dur}s;--delay:${delay}s;`;
       revParticles.appendChild(p);
     }
   }
+
+  /* ══════════════════════════════════
+     DYNAMIC FOOTER YEAR
+  ══════════════════════════════════ */
+  const yearEl = document.getElementById('footerYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 }); // end DOMContentLoaded
 

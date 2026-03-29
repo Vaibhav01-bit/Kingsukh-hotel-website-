@@ -49,19 +49,9 @@
 
 <body>
 
-  <!-- ─── PRELOADER ─── -->
-  <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-      <div class="preloader-logo">
-        <i class="fa-solid fa-crown"></i>
-        <span>Kingsukh</span>
-      </div>
-      <div class="preloader-bar">
-        <div class="preloader-fill"></div>
-      </div>
-      <p class="preloader-text">Preparing your perfect escape…</p>
-    </div>
-  </div>
+  <!-- ─── SCROLL PROGRESS BAR ─── -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
 
   <!-- ─── TOP OFFER BANNER ─── -->
   <div class="offer-banner" id="offerBanner">
@@ -76,24 +66,25 @@
 
   <!-- ─── NAVBAR ─── -->
   <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="#home" class="nav-logo">
-        <i class="fa-solid fa-crown"></i>
+    <div class="nav-container" style="justify-content: space-between; align-items: center;">
+      <a href="#home" class="nav-logo"
+        style="display: flex; flex-direction: column; align-items: flex-start; gap: 0; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 400; line-height: 1.3;">
         <span>Kingsukh</span>
+        <span>Guest House</span>
       </a>
 
-      <ul class="nav-links" id="navLinks">
+      <ul class="nav-links" id="navLinks" style="flex-grow: 1; justify-content: center; gap: 5px;">
         <li><a href="#home" class="nav-link active">Home</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#rooms" class="nav-link">Rooms</a></li>
         <li><a href="#service" class="nav-link">Services</a></li>
-        <li><a href="#gallery" class="nav-link">Gallery</a></li>
-        <li><a href="#reviews" class="nav-link">Reviews</a></li>
+        <li><a href="#rooms" class="nav-link">Rooms</a></li>
+        <li><a href="#gallery" class="nav-link">Gallary</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
 
-      <a href="https://wa.link/at5ion" target="_blank" class="btn-book nav-book">
-        <i class="fa-brands fa-whatsapp"></i> Book Now
+      <a href="https://wa.link/at5ion" target="_blank" class="nav-book"
+        style="background-color: #f62474; color: #fff; padding: 12px 28px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px; border: none; box-shadow: 0 4px 15px rgba(246, 36, 116, 0.35); transition: all 0.3s ease;">
+        BOOK NOW
       </a>
 
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -105,46 +96,63 @@
   <!-- ─── HERO ─── -->
   <section class="hero" id="home">
     <div class="hero-bg">
-      <img src="assets/header.jpg" alt="Kingsukh Guest House surrounded by nature" class="hero-img" loading="eager" />
-      <div class="hero-overlay"></div>
+      <img src="assets/ayodhya.webp" alt="Kingsukh Guest House surrounded by nature" class="hero-img"
+        style="object-position: center 30%; filter: brightness(1.05) contrast(1.05); transform: scale(1.05);"
+        loading="eager" />
+      <!-- Subtle top gradient for navbar readability, keeping the image natural and bright -->
+      <div class="hero-overlay"
+        style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 25%, transparent 60%, rgba(0,0,0,0.3) 100%); mix-blend-mode: multiply;">
+      </div>
     </div>
 
-    <div class="hero-content">
-      <p class="hero-tagline">
-        <span class="tagline-dot"></span> Simple &nbsp;·&nbsp; Unique &nbsp;·&nbsp; Friendly
+    <!-- Centered hero content to match the premium screenshot -->
+    <div class="hero-content"
+      style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin: 0 auto; z-index: 2;">
+      <p class="hero-tagline"
+        style="font-family: 'Inter', sans-serif; font-weight: 400; color: rgba(255,255,255,0.9); margin-bottom: 20px; letter-spacing: 0.5px; text-transform: none; justify-content: center; font-size: 1.1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+        Simple - Unique - Friendly
       </p>
-      <h1 class="hero-title">Experience Nature's<br /><span class="gold">Finest Hospitality</span></h1>
-      <p class="hero-sub">
-        Nestled amidst Biharinath, Baranti &amp; Susunia Hills — your perfect escape awaits in Barhanti, Purulia
-      </p>
-      <div class="hero-actions">
-        <a href="https://wa.link/at5ion" target="_blank" class="btn-book hero-cta">
-          <i class="fa-brands fa-whatsapp"></i> Book on WhatsApp
-        </a>
-        <a href="#booking" class="btn-outline">
-          <i class="fa-regular fa-calendar"></i> Check Availability
-        </a>
-      </div>
 
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-num" data-target="100">0</span><span>+</span>
-          <p>Bookings</p>
+      <h1 class="hero-title"
+        style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: clamp(2.8rem, 6vw, 4.8rem); line-height: 1.2; margin-bottom: 0; text-shadow: 0 4px 16px rgba(0,0,0,0.6); letter-spacing: -1px;">
+        Make Yourself At Home<br>
+        In Our <span style="color: #f62474; text-shadow: 0 4px 16px rgba(0,0,0,0.6);">Guest House.</span>
+      </h1>
+
+      <!-- Hidden the old stats and actions as they are not in the new screenshot design -->
+      <div style="display: none;">
+        <p class="hero-sub">
+          Nestled amidst Biharinath, Baranti &amp; Susunia Hills — your perfect escape awaits in Barhanti, Purulia
+        </p>
+        <div class="hero-actions">
+          <a href="https://wa.link/at5ion" target="_blank" class="btn-book hero-cta">
+            <i class="fa-brands fa-whatsapp"></i> Book on WhatsApp
+          </a>
+          <a href="#booking" class="btn-outline">
+            <i class="fa-regular fa-calendar"></i> Check Availability
+          </a>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num" data-target="150">0</span><span>+</span>
-          <p>Happy Guests</p>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num" data-target="4">0</span><span>★</span>
-          <p>Rating</p>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num" data-target="5">0</span><span>+</span>
-          <p>Attractions</p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num" data-target="100">0</span><span>+</span>
+            <p>Bookings</p>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num" data-target="150">0</span><span>+</span>
+            <p>Happy Guests</p>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num" data-target="4">0</span><span>★</span>
+            <p>Rating</p>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num" data-target="5">0</span><span>+</span>
+            <p>Attractions</p>
+          </div>
         </div>
       </div>
     </div>
@@ -206,12 +214,21 @@
 
       <div class="about-grid">
         <div class="about-images" data-aos="fade-right">
-          <div class="about-img-main">
-            <img src="assets/out.jpg" alt="Kingsukh Guest House exterior building" loading="lazy" />
+          <div class="about-img-main"
+            style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md);">
+            <img src="assets/palash.webp" alt="Beautiful Palash forest near Kingsukh Guest House" loading="lazy"
+              style="transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.05)'"
+              onmouseout="this.style.transform='scale(1)'" />
           </div>
-          <div class="about-img-float">
-            <img src="assets/recep.jpg" alt="Reception area of Kingsukh Guest House" loading="lazy" />
-            <div class="float-badge"><i class="fa-solid fa-star"></i><span>Premium Stay</span></div>
+          <div class="about-img-float"
+            style="border-radius: var(--radius-sm); overflow: hidden; box-shadow: var(--shadow-lg); border: 4px solid var(--cream);">
+            <img src="assets/mithonDam.webp" alt="Scenic Maithon Dam view" loading="lazy"
+              style="transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.08)'"
+              onmouseout="this.style.transform='scale(1)'" />
+            <div class="float-badge"
+              style="background: var(--green-mid); color: white; border-radius: 50px; font-weight: 500;"><i
+                class="fa-solid fa-leaf" style="color: #fff; margin-right: 6px;"></i><span>Eco-Friendly Stay</span>
+            </div>
           </div>
         </div>
 
@@ -306,6 +323,11 @@
           <div class="room-img-wrap">
             <img src="assets/room1.jpg" alt="Cozy Haven Room at Kingsukh Guest House" class="room-img" loading="lazy" />
             <div class="room-badge">Most Popular</div>
+            <div class="room-hover-overlay">
+              <a href="https://wa.link/at5ion" target="_blank" class="room-hover-btn">
+                <i class="fa-brands fa-whatsapp"></i> Book This Room
+              </a>
+            </div>
           </div>
           <div class="room-body">
             <h3 class="room-name">Cozy Haven Room</h3>
@@ -333,6 +355,11 @@
             <img src="assets/large.jpg" alt="Spacious Serenity Suite at Kingsukh Guest House" class="room-img"
               loading="lazy" />
             <div class="room-badge luxury">Luxury Suite</div>
+            <div class="room-hover-overlay">
+              <a href="https://wa.link/at5ion" target="_blank" class="room-hover-btn">
+                <i class="fa-brands fa-whatsapp"></i> Book This Room
+              </a>
+            </div>
           </div>
           <div class="room-body">
             <h3 class="room-name">Spacious Serenity Suite</h3>
@@ -359,6 +386,11 @@
           <div class="room-img-wrap">
             <img src="assets/flower.jpg" alt="Lush garden view from Garden View Room at Kingsukh Guest House"
               class="room-img" loading="lazy" />
+            <div class="room-hover-overlay">
+              <a href="https://wa.link/at5ion" target="_blank" class="room-hover-btn">
+                <i class="fa-brands fa-whatsapp"></i> Book This Room
+              </a>
+            </div>
           </div>
           <div class="room-body">
             <h3 class="room-name">Garden View Room</h3>
@@ -387,8 +419,9 @@
   <!-- ─── SERVICES ─── -->
   <section class="services section" id="service">
     <div class="services-bg">
-      <img src="assets/service.jpg" alt="Kingsukh services background" loading="lazy" />
-      <div class="services-overlay"></div>
+      <img src="assets/1.jpg" alt="Beautiful green landscape" loading="lazy" />
+      <div class="services-overlay"
+        style="background: linear-gradient(135deg, rgba(20, 54, 37, 0.88) 0%, rgba(16, 30, 22, 0.95) 100%);"></div>
     </div>
     <div class="container services-inner">
       <div class="section-header centered light-header">
@@ -457,27 +490,33 @@
       <div class="gallery-grid">
         <div class="gallery-item large" data-aos="fade-up">
           <img src="assets/baranti.webp" alt="Baranti Hills near Kingsukh Guest House" loading="lazy" />
-          <div class="gallery-overlay"><span>Baranti Hills</span></div>
+          <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus gallery-zoom-icon"></i><span>Baranti
+              Hills</span></div>
         </div>
-        <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+        <div class="gallery-item tall" data-aos="fade-up" data-aos-delay="100">
           <img src="assets/ayodhya.webp" alt="Ayodhya Hills Purulia" loading="lazy" />
-          <div class="gallery-overlay"><span>Ayodhya Hills</span></div>
+          <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus gallery-zoom-icon"></i><span>Ayodhya
+              Hills</span></div>
         </div>
         <div class="gallery-item" data-aos="fade-up" data-aos-delay="150">
           <img src="assets/mithonDam.webp" alt="Maithon Dam scenic view" loading="lazy" />
-          <div class="gallery-overlay"><span>Maithon Dam</span></div>
+          <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus gallery-zoom-icon"></i><span>Maithon
+              Dam</span></div>
         </div>
-        <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+        <div class="gallery-item wide" data-aos="fade-up" data-aos-delay="200">
           <img src="assets/palash.webp" alt="Palash forest Purulia" loading="lazy" />
-          <div class="gallery-overlay"><span>Palash Forest</span></div>
+          <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus gallery-zoom-icon"></i><span>Palash
+              Forest</span></div>
         </div>
-        <div class="gallery-item large" data-aos="fade-up" data-aos-delay="100">
+        <div class="gallery-item wide" data-aos="fade-up" data-aos-delay="100">
           <img src="assets/flower.jpg" alt="Kingsukh Guest House garden flowers" loading="lazy" />
-          <div class="gallery-overlay"><span>Hotel Garden</span></div>
+          <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus gallery-zoom-icon"></i><span>Hotel
+              Garden</span></div>
         </div>
         <div class="gallery-item" data-aos="fade-up" data-aos-delay="250">
           <img src="assets/1.jpg" alt="Local scenic beauty near Barhanti" loading="lazy" />
-          <div class="gallery-overlay"><span>Local Scenery</span></div>
+          <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus gallery-zoom-icon"></i><span>Local
+              Scenery</span></div>
         </div>
       </div>
     </div>
@@ -655,27 +694,37 @@
         <div class="rating-bars">
           <div class="rbar-row">
             <span>5 ★</span>
-            <div class="rbar"><div class="rbar-fill" style="width:78%"></div></div>
+            <div class="rbar">
+              <div class="rbar-fill" style="width:78%"></div>
+            </div>
             <span>78%</span>
           </div>
           <div class="rbar-row">
             <span>4 ★</span>
-            <div class="rbar"><div class="rbar-fill" style="width:16%"></div></div>
+            <div class="rbar">
+              <div class="rbar-fill" style="width:16%"></div>
+            </div>
             <span>16%</span>
           </div>
           <div class="rbar-row">
             <span>3 ★</span>
-            <div class="rbar"><div class="rbar-fill" style="width:4%"></div></div>
+            <div class="rbar">
+              <div class="rbar-fill" style="width:4%"></div>
+            </div>
             <span>4%</span>
           </div>
           <div class="rbar-row">
             <span>2 ★</span>
-            <div class="rbar"><div class="rbar-fill" style="width:2%"></div></div>
+            <div class="rbar">
+              <div class="rbar-fill" style="width:2%"></div>
+            </div>
             <span>2%</span>
           </div>
           <div class="rbar-row">
             <span>1 ★</span>
-            <div class="rbar"><div class="rbar-fill" style="width:0%"></div></div>
+            <div class="rbar">
+              <div class="rbar-fill" style="width:0%"></div>
+            </div>
             <span>0%</span>
           </div>
         </div>
@@ -1004,7 +1053,7 @@
     </div>
     <div class="footer-bottom">
       <div class="container">
-        <p>&copy; 2025 Kingsukh Guest House. All Rights Reserved.</p>
+        <p>&copy; <span id="footerYear">2025</span> Kingsukh Guest House. All Rights Reserved.</p>
         <p>Designed with <i class="fa-solid fa-heart" style="color:#C8A951"></i> for nature lovers</p>
       </div>
     </div>
